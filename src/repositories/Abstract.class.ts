@@ -7,6 +7,9 @@ import {
   InsertOneResult,
   OptionalUnlessRequiredId,
   FindOptions,
+  UpdateResult,
+  ObjectId,
+  UpdateFilter,
 } from "mongodb";
 
 export abstract class AbstractClass<T extends Document> {
@@ -49,6 +52,13 @@ export abstract class AbstractClass<T extends Document> {
     data: OptionalUnlessRequiredId<T>
   ): Promise<InsertOneResult<T>> {
     return await this.collection.insertOne(data);
+  }
+
+  public async update(id: string, data: Partial<T>): Promise<UpdateResult> {
+    const _id = new ObjectId(id) as Filter<T>;
+    return this.collection.updateOne({ _id }, {
+      $set: data,
+    } as UpdateFilter<T>);
   }
 
   public getCollection(): Collection<T> {

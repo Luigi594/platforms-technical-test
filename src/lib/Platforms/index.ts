@@ -29,8 +29,8 @@ export class Platforms {
     return this.classData.insertPlatform(platform);
   }
 
-  updatePlatform(id: string, platform: IPlatforms) {
-    return this.classData.updatePlatform({ ...platform, platformID: id });
+  async updatePlatform(id: string, platform: IPlatforms) {
+    return await this.classData.updatePlatform({ _id: id, ...platform });
   }
 
   deletePlatform(id: string) {

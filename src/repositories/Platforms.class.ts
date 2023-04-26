@@ -64,14 +64,8 @@ export class PlatformsClass extends AbstractClass<IPlatforms> {
 
   async updatePlatform(data: Partial<IPlatforms>) {
     try {
-      const { platformID, ...updateData } = data;
-      const collection = super.getCollection();
-      const result = collection.updateOne(
-        { platformID },
-        {
-          $set: updateData,
-        }
-      );
+      const { _id, ...updateData } = data;
+      const result = await super.update(_id as string, updateData);
       return result;
     } catch (error) {
       throw error;

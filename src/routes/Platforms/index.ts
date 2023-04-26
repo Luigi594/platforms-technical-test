@@ -34,9 +34,7 @@ router.get("/find-filter", async (req: Request, res: Response) => {
     );
 
     if (result.length === 0) {
-      res
-        .status(200)
-        .json({ message: "No records matches the filter preference" });
+      res.status(200).json(await platformClassInstace.getAllPlatforms());
     } else {
       res.status(200).json(result);
     }
